@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{B8E83AA4-2EEF-B2DE-0397-90E8FEE165FF}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Main Folder/Scripts/EnemyBase.cs">
+    <Files>
+      <File FileName="Assets/Main Folder/Scripts/PlayerController.cs" Line="28" Column="30" IsPinned="True" />
+      <File FileName="Assets/Main Folder/Scripts/EnemyBase.cs" Line="186" Column="51" />
+      <File FileName="Assets/Main Folder/Scripts/PlayerCameraController.cs" />
+      <File FileName="Assets/Main Folder/Scripts/ColliderCallReceiver.cs" />
+      <File FileName="Assets/Main Folder/Scripts/Billboard.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Monsters" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Main Folder" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="PlayerController.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e3c5ea1f-d48d-4557-840b-24e262eaf63f" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
