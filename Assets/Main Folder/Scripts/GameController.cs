@@ -10,18 +10,35 @@ public class GameController : MonoBehaviour
     [SerializeField] PlayerController player = null;
     //敵リスト
     [SerializeField] List<EnemyBase> enemys = new List<EnemyBase>();
+    //敵の移動ターゲットリスト
+    [SerializeField] List<Transform> enemyTargets = new List<Transform>();
 
-    // Start is called before the first frame update
     void Start()
     {
         player.GameOverEvent.AddListener(OnGameOver);
         gameOver.SetActive(false);
+
+        foreach (var enemy in enemys)
+        {
+            enemy.ArrivalEvent.AddListener(EnemyMove);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    //リストからランダムにターゲットを取得
+    Transform GetEnemyMoveTarget()
     {
-        
+        if (enemyTargets == null || enemyTargets.Count == 0) return null;
+        else if (enemyTargets.Count == 1) return enemyTargets[0];
+
+        int num = Random.Range(0, enemyTargets.Count);
+        return enemyTargets[num];
+    }
+
+    //敵に次の目的地を設定
+    void EnemyMove( EnemyBase enemy )
+    {
+        var target = GetEnemyMoveTarget();
+        if( target != null ) enemy.SetNextTarget( target );
     }
 
     //ゲームオーバー時にプレイヤーから呼ばれる

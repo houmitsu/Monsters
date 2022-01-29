@@ -6,43 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    //HPバーのスライダー
-    [SerializeField] Slider hpBar = null;
-    //攻撃用オブジェクト
-    [SerializeField] GameObject attackHit = null;
-    //接地判定用ColliderCall
-    [SerializeField] ColliderCallReceiver footColliderCall = null;
-    //タッチマーカー
-    [SerializeField] GameObject touchMarker = null;
-    //ジャンプ力
-    [SerializeField] float jumpPower = 20f;
-    //カメラコントローラー
-    [SerializeField] PlayerCameraController cameraController = null;
-    //自身のコライダー
-    [SerializeField] Collider myCollider = null;
-    //攻撃を食らったときのパーティクルプレハブ
-    [SerializeField] GameObject hitParticlePrefab = null;
-    //パーティクルオブジェクト保管用リスト
-    List<GameObject> particleObjectList = new List<GameObject>();
-    //アニメーター
-    Animator animator = null;
-    //リジッドボディ
-    Rigidbody rigid = null;
-    //攻撃アニメーション中フラグ
-    bool isAttack = false;
-    //接地フラグ
-    bool isGround = false;
-    //タッチフラグ
-    bool isTouch = false;
-    //PCキー横方向入力
-    float horizontalKeyInput = 0;
-    //PCキー縦方向入力
-    float verticalKeyInput = 0;
-    //左半分タッチスタート位置
-    Vector2 leftStartTouch = new Vector2();
-    //左半分タッチ入力
-    Vector2 leftTouchInput = new Vector2();
-
     //ステータス
     [System.Serializable]
     public class Status
@@ -53,12 +16,32 @@ public class PlayerController : MonoBehaviour
         public int Power = 1;
     }
 
-    // 攻撃HitオブジェクトのColliderCall.
+    //攻撃HitオブジェクトのColliderCall
     [SerializeField] ColliderCallReceiver attackHitCall = null;
-    // 基本ステータス.
+    //基本ステータス
     [SerializeField] Status DefaultStatus = new Status();
-    // 現在のステータス.
+    //現在のステータス
     public Status CurrentStatus = new Status();
+
+    //攻撃判定用オブジェクト
+    [SerializeField] GameObject attackHit = null;
+    //接地判定用ColliderCall
+    [SerializeField] ColliderCallReceiver footColliderCall = null;
+    //タッチマーカー
+    [SerializeField] GameObject touchMarker = null;
+    //ジャンプ力
+    [SerializeField] float jumpPower = 20f;
+
+    //カメラコントローラー
+    [SerializeField] PlayerCameraController cameraController = null;
+
+    //自身のコライダー
+    [SerializeField] Collider myCollider = null;
+    //攻撃を食らったときのパーティクルプレハブ
+    [SerializeField] GameObject hitParticlePrefab = null;
+
+    //HPバーのスライダー
+    [SerializeField] Slider hpBar = null;
 
     //ゲームオーバー時イベント
     public UnityEvent GameOverEvent = new UnityEvent();
@@ -66,6 +49,31 @@ public class PlayerController : MonoBehaviour
     Vector3 startPosition = new Vector3();
     //開始時角度
     Quaternion startRotation = new Quaternion();
+
+    //パーティクルオブジェクト保管用リスト
+    List<GameObject> particleObjectList = new List<GameObject>();
+
+    //アニメーター
+    Animator animator = null;
+    //リジッドボディ
+    Rigidbody rigid = null;
+    //攻撃アニメーション中フラグ
+    bool isAttack = false;
+    //接地フラグ
+    bool isGround = false;
+
+    //PCキー横方向入力
+    float horizontalKeyInput = 0;
+    //PCキー縦方向入力
+    float verticalKeyInput = 0;
+
+    //タッチフラグ
+    bool isTouch = false;
+
+    //左半分タッチスタート位置
+    Vector2 leftStartTouch = new Vector2();
+    //左半分タッチ入力
+    Vector2 leftTouchInput = new Vector2();
 
     void Start()
     {
@@ -101,7 +109,7 @@ public class PlayerController : MonoBehaviour
         cameraController.UpdateCameraLook(this.transform);
 
         if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer
-            || Application.platform == RuntimePlatform.OSXEditor)
+            || Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor)
         {
             //スマホタッチ操作
             //タッチしている指の数が０より多い
@@ -132,7 +140,6 @@ public class PlayerController : MonoBehaviour
                         //タッチ開始
                         if(touch.phase == TouchPhase.Began)
                         {
-                            Debug.Log( "タッチ開始" );
                             //開始位置を保管
                             leftStartTouch = touch.position;
                             //開始位置にマーカーを表示
@@ -145,7 +152,6 @@ public class PlayerController : MonoBehaviour
                         //タッチ中
                         else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                         {
-                            Debug.Log( "タッチ中" );
                             //現在の位置を随時保管
                             Vector2 position = touch.position;
                             // 移動用の方向を保管.
@@ -154,7 +160,6 @@ public class PlayerController : MonoBehaviour
                         //タッチ終了
                         else if(touch.phase == TouchPhase.Ended)
                         {
-                            Debug.Log( "タッチ終了" );
                             leftTouchInput = Vector2.zero;
                             //マーカーを非表示
                             touchMarker.gameObject.SetActive(false);
@@ -176,13 +181,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //PCキー入力取得.
+            //PCキー入力取得
             horizontalKeyInput = Input.GetAxis("Horizontal");
             verticalKeyInput = Input.GetAxis("Vertical");
         }
 
-        //プレイヤーの向きを
-        bool isKeyInput = ( horizontalKeyInput != 0 || verticalKeyInput != 0 || leftTouchInput != Vector2.zero);
+        //プレイヤーの向きを調整
+        bool isKeyInput = (horizontalKeyInput != 0 || verticalKeyInput != 0 || leftTouchInput != Vector2.zero);
         if(isKeyInput == true && isAttack == false)
         {
             bool currentIsRun = animator.GetBool("isRun");
@@ -201,14 +206,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // カメラの位置をプレイヤーに合わせる.
-        cameraController.FixedUpdateCameraPosition( this.transform );
+        cameraController.FixedUpdateCameraPosition(this.transform);
 
-        if ( isAttack == false )
+        if (isAttack == false)
         {
             Vector3 input = new Vector3();
             Vector3 move = new Vector3();
-            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer
-                || Application.platform == RuntimePlatform.OSXEditor)
+            if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer
+                || Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor)
             {
                 input = new Vector3(leftTouchInput.x, 0, leftTouchInput.y);
                 move = input.normalized * 2f;
@@ -231,7 +236,7 @@ public class PlayerController : MonoBehaviour
     //攻撃ボタンクリックコールバック
     public void OnAttackButtonClicked()
     {
-        if (isAttack == false)
+        if(isAttack == false)
         {
             //AnimationのisAttackトリガーを起動
             animator.SetTrigger("isAttack");
@@ -261,9 +266,8 @@ public class PlayerController : MonoBehaviour
     //ジャンプボタンクリックコールバック
     public void OnJumpButtonClicked()
     {
-        if (isGround == true)
+        if(isGround == true)
         {
-            Debug.Log("ジャンプ");
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }      
     }
@@ -271,9 +275,9 @@ public class PlayerController : MonoBehaviour
     //FootSphereトリガーエンターコール
     void OnFootTriggerStay(Collider col)
     {
-        if (col.gameObject.tag == "Ground")
+        if(col.gameObject.tag == "Ground")
         {
-            if (isGround == false) isGround = true;
+            if(isGround == false) isGround = true;
             if(animator.GetBool("isGround") == false) animator.SetBool("isGround", true);
         }
     }
@@ -281,7 +285,7 @@ public class PlayerController : MonoBehaviour
     //FootSphereトリガーイグジットコール
     void OnFootTriggerExit(Collider col)
     {
-        if (col.gameObject.tag == "Ground")
+        if(col.gameObject.tag == "Ground")
         {
             isGround = false;
             animator.SetBool("isGround", false);
@@ -294,7 +298,7 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "Enemy")
         {
             var enemy = col.gameObject.GetComponent<EnemyBase>();
-            enemy?.OnAttackHit( CurrentStatus.Power, this.transform.position );
+            enemy?.OnAttackHit(CurrentStatus.Power, this.transform.position);
             attackHit.SetActive(false);
         }
     }
@@ -305,42 +309,40 @@ public class PlayerController : MonoBehaviour
         CurrentStatus.Hp -= damage;
         hpBar.value = CurrentStatus.Hp;
 
-        var pos = myCollider.ClosestPoint( attackPosition );
-        var obj = Instantiate( hitParticlePrefab, pos, Quaternion.identity );
+        var pos = myCollider.ClosestPoint(attackPosition);
+        var obj = Instantiate(hitParticlePrefab, pos, Quaternion.identity);
         var par = obj.GetComponent<ParticleSystem>();
-        StartCoroutine( WaitDestroy( par ) );
-        particleObjectList.Add( obj );
+        StartCoroutine(WaitDestroy(par));
+        particleObjectList.Add(obj);
  
-        if( CurrentStatus.Hp <= 0 )
+        if(CurrentStatus.Hp <= 0)
         {
             OnDie();
         }
         else
         {
-            Debug.Log(damage + "のダメージを食らった!!残りHP" + CurrentStatus.Hp );
+            Debug.Log(damage + "のダメージを食らった!!残りHP" + CurrentStatus.Hp);
         }
     }
 
     //パーティクルが終了したら破棄する
-    IEnumerator WaitDestroy( ParticleSystem particle )
+    IEnumerator WaitDestroy(ParticleSystem particle)
     {
-        yield return new WaitUntil( () => particle.isPlaying == false );
-        if( particleObjectList.Contains( particle.gameObject ) == true ) particleObjectList.Remove( particle.gameObject );
+        yield return new WaitUntil(() => particle.isPlaying == false);
+        if(particleObjectList.Contains( particle.gameObject ) == true) particleObjectList.Remove(particle.gameObject);
         Destroy( particle.gameObject );
     }
 
     //死亡時処理
     void OnDie()
     {
-        Debug.Log( "死亡しました。" );
-        GameOverEvent?.Invoke();
-
         StopAllCoroutines();
-        if( particleObjectList.Count > 0 )
+        if(particleObjectList.Count > 0)
         {
-            foreach( var obj in particleObjectList ) Destroy( obj );
+            foreach(var obj in particleObjectList) Destroy(obj);
             particleObjectList.Clear();
         }
+        GameOverEvent?.Invoke();
     }
 
     //リトライ処理

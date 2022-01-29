@@ -55,14 +55,12 @@ public class PlayerCameraController : MonoBehaviour
         //タッチ開始
         if( touch.phase == TouchPhase.Began )
         {
-            Debug.Log("右タッチ開始");
             //開始位置を保管
             cameraStartTouch = touch.position;
         }
         //タッチ中
         else if( touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary )
         {
-            Debug.Log( "右タッチ中" );
             //現在の位置を随時保管
             Vector2 position = touch.position;
             //開始位置からの移動ベクトルを算出
@@ -83,7 +81,6 @@ public class PlayerCameraController : MonoBehaviour
         //タッチ終了
         else if( touch.phase == TouchPhase.Ended )
         {
-            Debug.Log( "右タッチ終了" );
             cameraTouchInput = Vector2.zero;
         }
     }    
