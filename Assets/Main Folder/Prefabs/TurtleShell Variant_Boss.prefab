@@ -439,6 +439,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7966274796892331893}
     - target: {fileID: 8947255722490180186, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
+      propertyPath: CurrentStatus.Hp
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8947255722490180186, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
+      propertyPath: DefaultStatus.Hp
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8947255722490180186, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
       propertyPath: aroundColliderCall
       value: 
       objectReference: {fileID: 7966274796794793992}

@@ -265,15 +265,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackHitCall: {fileID: 0}
   DefaultStatus:
-    Hp: 10
-    Power: 1
+    Hp: 50
+    Power: 5
   CurrentStatus:
-    Hp: 10
-    Power: 1
+    Hp: 50
+    Power: 5
   attackHit: {fileID: 0}
   footColliderCall: {fileID: 0}
   touchMarker: {fileID: 0}
-  jumpPower: 20
+  jumpPower: 30
   cameraController: {fileID: 0}
   myCollider: {fileID: 4923251740561078214}
   hitParticlePrefab: {fileID: 5684982888415427841, guid: 9fdd1893e42c6459eb13453116ea188b, type: 3}

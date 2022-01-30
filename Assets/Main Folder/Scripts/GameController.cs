@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
                 CreateEnemy();
             }
             //10体以上倒していたら生成中止
-            if (currentBossCount > 10) isEnemySpawn = false;
+            if (currentBossCount > 5) isEnemySpawn = false;
 
             if (isEnemySpawn == false) break;
         }
@@ -99,6 +99,8 @@ public class GameController : MonoBehaviour
     void CreateBoss()
     {
         if (isBossAppeared == true) return;
+
+        bossPrefab.SetActive(true);
 
         Debug.Log("Bossが出現!!");
 
@@ -168,7 +170,6 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            Debug.Log("GameClear!!");
             isTimer = false;
 
             if (currentTime > 999f) gameClearTimeText.text = "Time : 999.9";

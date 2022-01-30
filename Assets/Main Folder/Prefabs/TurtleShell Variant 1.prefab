@@ -444,7 +444,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1837317425425208, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
       propertyPath: m_Name
-      value: TurtleShell Variant
+      value: TurtleShell Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 4882590064214274, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
       propertyPath: m_RootOrder
@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: hpBar
       value: 
       objectReference: {fileID: 6795161275029093884}
+    - target: {fileID: 8947255722490180186, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
+      propertyPath: IsBoss
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8947255722490180186, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
       propertyPath: farAttackCall
       value: 

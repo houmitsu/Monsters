@@ -32,8 +32,6 @@ public class ItemBase : MonoBehaviour
 
         if (col.gameObject.tag == "Player")
         {
-            Debug.Log("アイテムを取得");
-
             //オーバーライド可能な処理を実行
             ItemAction(col);
             isEffective = false;

@@ -957,11 +957,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultStatus:
-    Hp: 10
-    Power: 1
+    Hp: 5
+    Power: 3
   CurrentStatus:
-    Hp: 10
-    Power: 1
+    Hp: 5
+    Power: 3
+  IsBoss: 1
   aroundColliderCall: {fileID: 0}
   myCollider: {fileID: 1538544903875932428}
   hitParticlePrefab: {fileID: 5196967658128075338, guid: d996c98ceb4524c788d84136536efb07, type: 3}

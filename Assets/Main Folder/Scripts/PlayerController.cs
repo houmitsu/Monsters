@@ -248,7 +248,6 @@ public class PlayerController : MonoBehaviour
     //攻撃アニメーションHitイベントコール
     void Anim_AttackHit()
     {
-        Debug.Log("Hit");
         //攻撃判定用オブジェクトを表示
         attackHit.SetActive(true);
     }
@@ -256,7 +255,6 @@ public class PlayerController : MonoBehaviour
     //攻撃アニメーション終了イベントコール
     void Anim_AttackEnd()
     {
-        Debug.Log("End");
         // 攻撃判定用オブジェクトを非表示に.
         attackHit.SetActive(false);
         // 攻撃終了.
@@ -268,7 +266,6 @@ public class PlayerController : MonoBehaviour
     {
         if(isGround == true)
         {
-            Debug.Log("ジャンプ");
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }      
     }

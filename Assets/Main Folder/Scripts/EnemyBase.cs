@@ -111,7 +111,6 @@ public class EnemyBase : MonoBehaviour
                 animator.SetBool("isRun", false);
 
                 ArrivalEvent?.Invoke(this);
-                Debug.Log(gameObject.name + "移動開始.");
             }
             else
             {
@@ -133,7 +132,6 @@ public class EnemyBase : MonoBehaviour
         if (navMeshAgent == null) navMeshAgent = GetComponent<NavMeshAgent>();
 
         navMeshAgent.SetDestination(target.position);
-        Debug.Log(gameObject.name + "ターゲットへ移動." + target.gameObject.name);
         currentTarget = target;
     }
 
@@ -142,7 +140,6 @@ public class EnemyBase : MonoBehaviour
     {
         CurrentStatus.Hp -= damage;
         hpBar.value = CurrentStatus.Hp;
-        Debug.Log("Hit Damage " + damage + "/CurrentHp = " + CurrentStatus.Hp);
 
         var pos = myCollider.ClosestPoint( attackPosition );
         var obj = Instantiate( hitParticlePrefab, pos, Quaternion.identity );

@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b39b76c473b034fe78d0fa9116db74fd, type: 2}
+    - target: {fileID: 8947255722490180186, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
+      propertyPath: IsBoss
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
