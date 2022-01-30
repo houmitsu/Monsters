@@ -12,7 +12,7 @@ public class EnemyBase : MonoBehaviour
     public class Status
     {
         //HP
-        public int Hp = 10;
+        public int Hp = 5;
         //攻撃力
         public int Power = 1;
     }

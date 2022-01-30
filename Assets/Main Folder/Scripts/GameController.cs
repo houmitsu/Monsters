@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -10,6 +11,15 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject gameClear = null;
     //プレイヤー
     [SerializeField] PlayerController player = null;
+    //ゲームクリア画面での時間表示テキスト
+    [SerializeField] Text gameClearTimeText = null;
+    //通常時の画面に時間表示するためのテキスト
+    [SerializeField] Text timerText = null;
+
+    //現在の時間
+    float currentTime = 0;
+    //時間計測フラグ
+    bool isTimer = false;
 
     //敵リスト
     //[SerializeField] List<EnemyBase> enemys = new List<EnemyBase>();
@@ -50,6 +60,16 @@ public class GameController : MonoBehaviour
         Init();
     }
 
+    void Update()
+    {
+        if (isTimer == true)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime > 999f) timerText.text = "999.9";
+            else timerText.text = currentTime.ToString("000.0");
+        }
+    }
+
     //初期化処理
     void Init()
     {
@@ -60,6 +80,10 @@ public class GameController : MonoBehaviour
 
         currentBossCount = 0;
         isBossAppeared = false;
+
+        currentTime = 0;
+        isTimer = true;
+        timerText.text = "0:00";
     }
 
     //敵生成ループコルーチン
@@ -129,7 +153,7 @@ public class GameController : MonoBehaviour
         if (enemy.IsBoss == false)
         {
             currentBossCount++;
-            if (currentBossCount > 10)
+            if (currentBossCount > 5)
             {
                 CreateBoss();
             }
@@ -137,6 +161,11 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.Log("GameClear!!");
+            isTimer = false;
+
+            if (currentTime > 999f) gameClearTimeText.text = "Time : 999.9";
+            else gameClearTimeText.text = "Time : " + currentTime.ToString("000.0");
+
             // ゲームクリアを表示.
             gameClear.SetActive(true);
 
@@ -171,6 +200,7 @@ public class GameController : MonoBehaviour
     //ゲームオーバー時にプレイヤーから呼ばれる
     void OnGameOver()
     {
+        isTimer = false;
         //ゲームオーバーを表示
         gameOver.SetActive(true);
         //プレイヤーを非表示

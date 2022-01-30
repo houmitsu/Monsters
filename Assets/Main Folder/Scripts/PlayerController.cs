@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     public class Status
     {
         //体力
-        public int Hp = 30;
+        public int Hp = 100;
         //攻撃力
-        public int Power = 3;
+        public int Power = 10;
     }
 
     //攻撃HitオブジェクトのColliderCall
@@ -358,5 +358,16 @@ public class PlayerController : MonoBehaviour
  
         //攻撃処理の途中でやられた時用
         isAttack = false;
+    }
+
+    //回復処理
+    public void OnHeal(int healPoint)
+    {
+        CurrentStatus.Hp += healPoint;
+        Debug.Log("HPが" + healPoint + "回復!!");
+
+        if (CurrentStatus.Hp > DefaultStatus.Hp) CurrentStatus.Hp = DefaultStatus.Hp;
+
+        hpBar.value = CurrentStatus.Hp;
     }
 }
