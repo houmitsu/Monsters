@@ -27,8 +27,8 @@ Unity Asset Storeのフリー素材
 houmitsu
 
 # 参考
-Unityの教科書
-Unity本格入門
-Unityの森
-Unityゲームエフェクト
+* Unityの教科書
+* Unity本格入門
+* Unityの森
+* Unityゲームエフェクト
 
