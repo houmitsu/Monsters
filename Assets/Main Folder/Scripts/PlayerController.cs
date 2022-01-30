@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public class Status
     {
         //体力
-        public int Hp = 100;
+        public int Hp = 50;
         //攻撃力
         public int Power = 10;
     }
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Collider myCollider = null;
     //攻撃を食らったときのパーティクルプレハブ
     [SerializeField] GameObject hitParticlePrefab = null;
+    //パーティクルオブジェクト保管用リスト
+    List<GameObject> particleObjectList = new List<GameObject>();
 
     //HPバーのスライダー
     [SerializeField] Slider hpBar = null;
@@ -49,9 +51,7 @@ public class PlayerController : MonoBehaviour
     Vector3 startPosition = new Vector3();
     //開始時角度
     Quaternion startRotation = new Quaternion();
-
-    //パーティクルオブジェクト保管用リスト
-    List<GameObject> particleObjectList = new List<GameObject>();
+    
 
     //アニメーター
     Animator animator = null;
@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // カメラの位置をプレイヤーに合わせる.
+        //カメラの位置をプレイヤーに合わせる
         cameraController.FixedUpdateCameraPosition(this.transform);
 
         if (isAttack == false)
@@ -268,11 +268,12 @@ public class PlayerController : MonoBehaviour
     {
         if(isGround == true)
         {
+            Debug.Log("ジャンプ");
             rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }      
     }
 
-    //FootSphereトリガーエンターコール
+    //FootSphereトリガーステイコール
     void OnFootTriggerStay(Collider col)
     {
         if(col.gameObject.tag == "Ground")

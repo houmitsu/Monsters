@@ -36,7 +36,7 @@ public class Enemy_Turtle : EnemyBase
         if (other.gameObject.tag == "Player")
         {
             var sqrMag = (this.transform.position - other.gameObject.transform.position).sqrMagnitude;
-            if (sqrMag > 3f) isNear = false;　//値は適宜調整
+            if (sqrMag > 3f) isNear = false; //値は適宜調整
             else isNear = true;
 
         }

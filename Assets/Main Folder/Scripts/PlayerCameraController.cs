@@ -10,6 +10,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] Transform heightRoot = null;
     //プレイヤーカメラ
     [SerializeField] Camera mainCamera = null;
+    
     //カメラが写す中心のプレイヤーから高さ
     [SerializeField] float lookHeight = 1.0f;
     //カメラ回転スピード

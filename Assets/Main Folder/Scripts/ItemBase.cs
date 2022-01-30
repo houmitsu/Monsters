@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ColliderCallReceiver))]
 public class ItemBase : MonoBehaviour
@@ -24,12 +25,6 @@ public class ItemBase : MonoBehaviour
         colliderCall.TriggerEnterEvent.AddListener(OnTriggerEnter);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //アイテムのトリガーコライダーエンター時コール
     void OnTriggerEnter(Collider col)
     {
@@ -39,11 +34,11 @@ public class ItemBase : MonoBehaviour
         {
             Debug.Log("アイテムを取得");
 
-            // オーバーライド可能な処理を実行.
+            //オーバーライド可能な処理を実行
             ItemAction(col);
             isEffective = false;
 
-            // エフェクト表示.
+            //エフェクト表示
             if (effectParticle != null)
             {
                 var pos = (itemRenderer == null) ? this.transform.position : itemRenderer.gameObject.transform.position;

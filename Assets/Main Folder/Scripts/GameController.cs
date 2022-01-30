@@ -11,18 +11,6 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject gameClear = null;
     //プレイヤー
     [SerializeField] PlayerController player = null;
-    //ゲームクリア画面での時間表示テキスト
-    [SerializeField] Text gameClearTimeText = null;
-    //通常時の画面に時間表示するためのテキスト
-    [SerializeField] Text timerText = null;
-
-    //現在の時間
-    float currentTime = 0;
-    //時間計測フラグ
-    bool isTimer = false;
-
-    //敵リスト
-    //[SerializeField] List<EnemyBase> enemys = new List<EnemyBase>();
 
     //敵の移動ターゲットリスト
     [SerializeField] List<Transform> enemyTargets = new List<Transform>();
@@ -41,22 +29,26 @@ public class GameController : MonoBehaviour
     
     //ボスプレハブ
     [SerializeField] GameObject bossPrefab = null;
-
     //ボス出現フラグ
     bool isBossAppeared = false;
+
+    //ゲームクリア画面での時間表示テキスト
+    [SerializeField] Text gameClearTimeText = null;
+    //通常時の画面に時間表示するためのテキスト
+    [SerializeField] Text timerText = null;
+
+    //現在の時間
+    float currentTime = 0;
+    //時間計測フラグ
+    bool isTimer = false;
+
 
     void Start()
     {
         player.GameOverEvent.AddListener(OnGameOver);
+
         gameOver.SetActive(false);
 
-        //foreach (var enemy in enemys)
-        //{
-        //    enemy.ArrivalEvent.AddListener(EnemyMove);
-        //}
-
-        //CreateEnemy();
-        //CreateEnemy();
         Init();
     }
 
@@ -73,7 +65,6 @@ public class GameController : MonoBehaviour
     //初期化処理
     void Init()
     {
-        Debug.Log("初期化処理開始.");
         //敵の生成開始
         isEnemySpawn = true;
         StartCoroutine(EnemyCreateLoop());
@@ -141,6 +132,23 @@ public class GameController : MonoBehaviour
         fieldEnemys.Add(enemy);
     }
 
+    //リストからランダムにターゲットを取得
+    Transform GetEnemyMoveTarget()
+    {
+        if (enemyTargets == null || enemyTargets.Count == 0) return null;
+        else if (enemyTargets.Count == 1) return enemyTargets[0];
+
+        int num = Random.Range(0, enemyTargets.Count);
+        return enemyTargets[num];
+    }
+
+    //敵に次の目的地を設定
+    void EnemyMove( EnemyBase enemy )
+    {
+        var target = GetEnemyMoveTarget();
+        if( target != null ) enemy.SetNextTarget( target );
+    }
+
     //敵破壊時のイベント
     void EnemyDestroy(EnemyBase enemy)
     {
@@ -178,23 +186,6 @@ public class GameController : MonoBehaviour
             fieldEnemys.Clear();
         }
 
-    }
-
-    //リストからランダムにターゲットを取得
-    Transform GetEnemyMoveTarget()
-    {
-        if (enemyTargets == null || enemyTargets.Count == 0) return null;
-        else if (enemyTargets.Count == 1) return enemyTargets[0];
-
-        int num = Random.Range(0, enemyTargets.Count);
-        return enemyTargets[num];
-    }
-
-    //敵に次の目的地を設定
-    void EnemyMove( EnemyBase enemy )
-    {
-        var target = GetEnemyMoveTarget();
-        if( target != null ) enemy.SetNextTarget( target );
     }
 
     //ゲームオーバー時にプレイヤーから呼ばれる
