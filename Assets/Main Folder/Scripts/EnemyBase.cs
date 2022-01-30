@@ -21,8 +21,12 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] Status DefaultStatus = new Status();
     //現在のステータス
     public Status CurrentStatus = new Status();
+
+    [SerializeField] public bool IsBoss = false;
+
     //アニメーター
     Animator animator = null;
+
     //周辺レーダーコライダーコール
     [SerializeField] ColliderCallReceiver aroundColliderCall = null;
     //自身のコライダー
@@ -36,7 +40,9 @@ public class EnemyBase : MonoBehaviour
     //攻撃時間計測用
     float attackTimer = 0f;
     //攻撃判定用コライダーコール
-    [SerializeField] ColliderCallReceiver attackHitColliderCall = null;
+    [SerializeField] protected ColliderCallReceiver attackHitColliderCall = null;
+    //現在の攻撃ターゲット
+    protected Transform currentAttackTarget = null;
     //開始時位置
     Vector3 startPosition = new Vector3();
     //開始時角度
@@ -52,8 +58,11 @@ public class EnemyBase : MonoBehaviour
     //ナビメッシュ
     NavMeshAgent navMeshAgent = null;
 
-    // 現在設定されている目的地.
+    //現在設定されている目的地
     Transform currentTarget = null;
+
+    //死亡時イベント
+    public EnemyMoveEvent DestroyEvent = new EnemyMoveEvent();
 
     protected virtual void Start()
     {
@@ -166,7 +175,8 @@ public class EnemyBase : MonoBehaviour
     //死亡アニメーション終了コール
     void Anim_DieEnd()
     {
-        this.gameObject.SetActive(false);
+        //Destroy(gameObject);
+        DestroyEvent?.Invoke(this);
     }
 
     //周辺レーダーコライダーエンターイベントコール
@@ -182,22 +192,25 @@ public class EnemyBase : MonoBehaviour
     }
 
     //周辺レーダーコライダーステイイベントコール
-    void OnAroundTriggerStay(Collider other)
+    protected virtual void OnAroundTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
             var _dir = (other.gameObject.transform.position - this.transform.position).normalized;
             _dir.y = this.transform.position.y;
             this.transform.forward = _dir;
+
+            currentAttackTarget = other.gameObject.transform;
         }
     }
 
     //周辺レーダーコライダー終了イベントコール
-    void OnAroundTriggerExit(Collider other)
+    protected virtual void OnAroundTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
             IsBattle = false;
+            currentAttackTarget = null;
         }
     }
 
@@ -213,15 +226,15 @@ public class EnemyBase : MonoBehaviour
     }
 
     //攻撃Hitアニメーションコール
-    void Anim_AttackHit()
+    protected virtual void Anim_AttackHit()
     {
         attackHitColliderCall.gameObject.SetActive(true);
     }
 
     //攻撃アニメーション終了時コール
-    void Anim_AttackEnd()
+    protected virtual void Anim_AttackEnd()
     {
-        attackHitColliderCall.gameObject.SetActive( false );
+        attackHitColliderCall.gameObject.SetActive(false);
     }
 
     //プレイヤーリトライ時の処理

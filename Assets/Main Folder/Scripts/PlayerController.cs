@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     public class Status
     {
         //体力
-        public int Hp = 10;
+        public int Hp = 30;
         //攻撃力
-        public int Power = 1;
+        public int Power = 3;
     }
 
     //攻撃HitオブジェクトのColliderCall

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +53,9 @@
     <UnityVersion>2021.2.4f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets/Package Folder/ExplosiveLLC/Demo Elements/Code/GUIControls.cs" />
     <Compile Include="Assets/Package Folder/ExplosiveLLC/Warrior FREE/Code/AnimatorParentMove.cs" />
     <Compile Include="Assets/Package Folder/ExplosiveLLC/SuperCharacterController/SuperCharacterController/Core/SuperStateMachine.cs" />
@@ -84,11 +87,11 @@
     <Compile Include="Assets/Package Folder/ExplosiveLLC/SuperCharacterController/Scripts/PlayerCamera.cs" />
     <Compile Include="Assets/Main Folder/Scripts/ColliderCallReceiver.cs" />
     <Compile Include="Assets/Package Folder/ExplosiveLLC/SuperCharacterController/SuperCharacterController/DebugDraw.cs" />
+    <Compile Include="Assets/Main Folder/Scripts/Enemy_Turtle.cs" />
     <Compile Include="Assets/Package Folder/ExplosiveLLC/SuperCharacterController/SuperCharacterController/Core/BruteForceMesh.cs" />
     <Compile Include="Assets/Main Folder/Scripts/EnemyBase.cs" />
     <Compile Include="Assets/Package Folder/ExplosiveLLC/SuperCharacterController/SuperCharacterController/Core/SuperCharacterController.cs" />
     <Compile Include="Assets/Package Folder/Supercyan Character Pack Free Sample/Scripts/FreeCameraLogic.cs" />
-    <Compile Include="Assets/Main Folder/Scripts/Enemy_Turtle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/Package Folder/Fantasy Forest Environment Free Sample/StandardNoCulling.shader" />
