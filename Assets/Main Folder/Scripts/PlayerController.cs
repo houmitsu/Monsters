@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour
             Vector3 currentRigidVelocity = rigid.velocity;
             currentRigidVelocity.y = 0;
         
-            rigid.AddForce(cameraMove - rigid.velocity, ForceMode.VelocityChange);
+            //rigid.AddForce(cameraMove - rigid.velocity, ForceMode.VelocityChange);
         }
     }
 

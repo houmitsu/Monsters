@@ -8174,7 +8174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 840544424338163506, guid: d02111e8410c3498887e67df0e1cb313, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 840544424338163506, guid: d02111e8410c3498887e67df0e1cb313, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8219,6 +8219,10 @@ PrefabInstance:
     - target: {fileID: 2990478578232966691, guid: d02111e8410c3498887e67df0e1cb313, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929875327560110781, guid: d02111e8410c3498887e67df0e1cb313, type: 3}
+      propertyPath: jumpPower
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6929875327560110781, guid: d02111e8410c3498887e67df0e1cb313, type: 3}
       propertyPath: touchMarker

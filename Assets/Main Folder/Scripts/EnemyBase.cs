@@ -110,7 +110,8 @@ public class EnemyBase : MonoBehaviour
             {
                 animator.SetBool("isRun", false);
 
-                ArrivalEvent?.Invoke(this);
+                    ArrivalEvent?.Invoke(this);
+
             }
             else
             {
